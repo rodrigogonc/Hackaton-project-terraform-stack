@@ -12,7 +12,7 @@ data "template_file" "script" {
 
 
 variable "project" {
-  default = "fiap-lab"
+  default = "fiap-hackaton-lab"
 }
 
 data "aws_vpc" "vpc" {
@@ -42,7 +42,7 @@ resource "random_shuffle" "random_subnet" {
 
 
 resource "aws_elb" "web" {
-  name = "hackton-elb"
+  name = "hackton-workspace-elb"
 
   subnets         = data.aws_subnet_ids.all.ids
   security_groups = ["${aws_security_group.allow-ssh.id}"]
@@ -96,6 +96,6 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = "${format("nginx-hackaton-%03d", count.index + 1)}"
+    Name = "${format("nginx-hackaton-workspace-%03d", count.index + 1)}"
   }
 }
